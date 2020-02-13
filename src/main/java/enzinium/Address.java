@@ -13,6 +13,12 @@ public class Address {
     public void Address(int PK, int SK, int Balance, String Symbol) {
     }
 
+    public void generateKeyPair(){
+        KeyPair parejaDeclaves = GenSig.generateKeyPair();
+        this.PK = parejaDeclaves.getPublic();
+        this.SK = parejaDeclaves.getPrivate();
+    }
+
     public PublicKey getPK() {
         this.PK = PK;
         return PK;
@@ -35,6 +41,6 @@ public class Address {
 
     @Override
     public String toString() {
-        return "PublicKey: " + getPK() + "symbol: " + getSymbol() + "balance: " + getBalance();
+        return "PublicKey: " + PK.hashCode() + "\nBalance: " + getBalance();
     }
 }

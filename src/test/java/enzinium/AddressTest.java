@@ -17,4 +17,9 @@ public class AddressTest {
         Address address = new Address();
         System.out.println(address.toString());
     }
+
+    @Test
+    public void generateKeyPair() {
+
+    }
 }
