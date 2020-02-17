@@ -13,13 +13,17 @@ import enzinium.Address;
 public class AddressTest {
 
     @Test
-    public void toStringTest(){
+    public void constructor_test() {
         Address address = new Address();
-        System.out.println(address.toString());
+        assertNotNull(address);
+        assertEquals(0d, address.getBalance(), 0d);
     }
 
     @Test
-    public void generateKeyPair() {
-
+    public void generate_key_pair_test() {
+        Address address = new Address();
+        assertNotNull(address);
+        address.generateKeyPair();
+        assertNotNull(address.getPK());
     }
 }
