@@ -10,9 +10,6 @@ public class Address {
     private double Balance = 0d;
     private String Symbol = "EZI";
 
-    public void Address(int PK, int SK, int Balance, String Symbol) {
-    }
-
     public void generateKeyPair(){
         KeyPair parejaDeclaves = GenSig.generateKeyPair();
         this.PK = parejaDeclaves.getPublic();
