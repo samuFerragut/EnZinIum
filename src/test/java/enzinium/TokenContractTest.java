@@ -43,4 +43,16 @@ public class TokenContractTest {
       // chequeo getOrDefault(PK, 0d) para direcciones que no existen
       assertEquals(0d, ricknillos.balanceOf(morty.getPK()), 0d);
    }
+
+   @Test
+   public void transfer_test() {
+
+      ricknillos.transfer(morty.getPK(), 2d);
+      assertEquals(2d, ricknillos.balanceOf(morty.getPK()), 0d);
+      assertEquals(98d, ricknillos.balanceOf(rick.getPK()), 0d);
+
+      // require falla silenciosamente
+      ricknillos.transfer(morty.getPK(), 500d);
+      assertEquals(2d, ricknillos.balanceOf(morty.getPK()), 0d);
+   }
 }
