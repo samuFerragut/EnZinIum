@@ -40,4 +40,16 @@ public class Address {
     public String toString() {
         return "PublicKey: " + PK.hashCode() + "\nBalance: " + getBalance();
     }
+
+    public void transferEZI(double enziniums) {
+        this.Balance += enziniums;
+    }
+
+    public void send(TokenContract contract, Double enziniums) {
+        if (enziniums <= this.Balance) {
+            contract.payable(getPK(), enziniums);
+            this.Balance -= enziniums;
+        }
+    }
+
 }

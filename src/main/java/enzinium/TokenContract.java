@@ -80,19 +80,56 @@ public class TokenContract {
         return this.getBalances().getOrDefault(owner, 0d);
     }
 
-    public void transfer(PublicKey recipient, double units) {
+    public void transfer(PublicKey recipient, Double units) {
         try {
             require(balanceOf(ownerPK) >= units);
             this.getBalances().compute(ownerPK, (pk, tokens) -> tokens - units);
             this.getBalances().put(recipient, balanceOf(recipient) + units);
-        } catch (Exception e){
+        } catch (Exception e) {
+            // fails silently
+        }
+    };
 
+    public void transfer(PublicKey sender, PublicKey recipient, Double units) {
+        try {
+            require(balanceOf(sender) >= units);
+            this.getBalances().put(sender, balanceOf(sender) - units);
+            this.getBalances().put(recipient, balanceOf(recipient) + units);
+        } catch (Exception e) {
+            // fails silently
         }
     }
 
     private void require(boolean holds) throws Exception {
         if (! holds) {
             throw new Exception();
+        }
+    }
+
+    public void owners() {
+        for (PublicKey pk : this.getBalances().keySet()) {
+            if (!pk.equals(this.ownerPK)) {
+                System.out.println("Owner: " + pk.hashCode() + " "
+                        + getBalances().get(pk) + " "
+                        + this.symbol());
+            }
+        }
+    }
+
+    public int totalTokensSold() {
+        this.getBalances().forEach((pk, units) -> this.totalTokensSold += units);
+        this.totalTokensSold -= balanceOf(ownerPK);
+        return this.totalTokensSold.intValue();
+    }
+
+    void payable(PublicKey recipient, Double enziniums) {
+        try {
+            require(enziniums >= this.getTokenPrice());
+            Double units = Math.floor(enziniums / tokenPrice);
+            transfer(recipient, units);
+            this.owner.transferEZI(enziniums);
+        } catch (Exception e) {
+            // fail silently
         }
     }
 }

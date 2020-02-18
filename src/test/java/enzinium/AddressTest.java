@@ -26,4 +26,16 @@ public class AddressTest {
         address.generateKeyPair();
         assertNotNull(address.getPK());
     }
+
+    @Test
+    public void transferEZI_test() {
+
+        Address rick = new Address();
+        rick.generateKeyPair();
+
+        rick.transferEZI(20d);
+        rick.transferEZI(20d);
+
+        assertEquals(40d, rick.getBalance(), 0d);
+    }
 }
