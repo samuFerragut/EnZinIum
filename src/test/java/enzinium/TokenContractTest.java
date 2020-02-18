@@ -35,4 +35,12 @@ public class TokenContractTest {
       ricknillos.addOwner(rick.getPK(), 500d);
       assertEquals(100, ricknillos.getBalances().get(rick.getPK()), 0d);
    }
+
+   @Test
+   public void balanceOf_test() {
+
+      assertEquals(100d, ricknillos.balanceOf(rick.getPK()), 0d);
+      // chequeo getOrDefault(PK, 0d) para direcciones que no existen
+      assertEquals(0d, ricknillos.balanceOf(morty.getPK()), 0d);
+   }
 }

@@ -76,5 +76,8 @@ public class TokenContract {
         return this.getBalances().size();
     }
 
+    public double balanceOf(PublicKey owner) {
+        return this.getBalances().getOrDefault(owner, 0d);
+    }
 }
 
